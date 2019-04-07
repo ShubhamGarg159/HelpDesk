@@ -1,5 +1,4 @@
 ﻿using Help_Desk.Models;
-using Help_Desk.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +8,19 @@ namespace Help_Desk.Repository
 {
     public class AccountRepository
     {
-        AppContext DBContext = new AppContext();
+        EmployeeContext employeeContext = new EmployeeContext();
         public bool SaveUserDetails(UserDetails userdetails)
         {
             try
             {
-                DBContext.Userinfo.Add(userdetails);
-                DBContext.SaveChanges();
-                return (true);
+                employeeContext.Configuration.ValidateOnSaveEnabled = false;
+                employeeContext.Users.Add(userdetails);
+                employeeContext.SaveChanges();
+               return true;
             }
             catch(Exception ex)
             {
+                Console.WriteLine(ex.StackTrace);
                 throw ex;
             }          
         }

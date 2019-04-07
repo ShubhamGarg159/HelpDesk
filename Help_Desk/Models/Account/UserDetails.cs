@@ -6,80 +6,41 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Help_Desk.Models.Account
+namespace Help_Desk.Models
 {
-    [Table("tb_userdetail")]
+    [Table("tblEmployee")]
     public class UserDetails
     {
-        public int ID
-        {
-            get;
-            set;
-        }
-        [Required(ErrorMessage = ("Enter EmployeeID"))]
-        public string EmployeeID
-        {
-            get;
-            set;
-        }
-        [Required(ErrorMessage = ("Enter First Name"))]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = ("Enter Only Character"))]
-        public string FirstName
-        {
-            get;
-            set;
-        }
-        [Required(ErrorMessage = ("Enter Last Name"))]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = ("Enter Only Character"))]
-        public string LastName
-        {
-            get;
-            set;
-        }
-        [Required(ErrorMessage = ("Enter Email ID"))]
-       // [RegularExpression(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", ErrorMessage = ("Invalid EmailID"))]
-        [Remote("IsAlreadySigned", "User", HttpMethod = "POST", ErrorMessage = "EmailId already exists in database.")]
-        public string EmailID
-        {
-            get;
-            set;
-        }
-        [Required(ErrorMessage = ("Enter Mobile Number"))]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = ("Enter Only Number"))]
-        public string Mobile
-        {
-            get;
-            set;
-        }
-        [Required(ErrorMessage = ("Enter Password"))]
-        public string Password
-        {
-            get;
-            set;
-        }
-        [Required(ErrorMessage = ("Enter Confirm Password"))]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = ("Password Does Not Match"))]
-        public string ConfirmPassword
-        {
-            get;
-            set;
-        }
-        [Required(ErrorMessage = ("Enter Date Of Birth"))]
-        public DateTime DOB
-        {
-            get;
-            set;
-        }
-        [Required(ErrorMessage = ("Select District"))]
-        public string DistrictID
-        {
-            get;
-            set;
-        }
-        [HiddenInput]
-        public string UserRole
-        {
-            get;set;
-        }
+        public int Id { get; set; }
+
+        [Display(Name = "First Name")]
+        [Required]
+        [RegularExpression(@"^[a-zA-Z]{2,50}$", ErrorMessage = "Only Characters are allowed")]
+        public string FirstName { get; set; }
+
+       
+
+       [RegularExpression(@"^(\d{10})$", ErrorMessage = "Please Enter valid mobile number")]
+        public string Mobile { get; set; }
+
+        [Display(Name = "Email Id")]
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string EmailId { get; set; }
+
+        [DataType(DataType.Password)]
+        [Required]
+        public string Password { get; set; }
+
+        [Display(Name = "Confirm Password")]
+        [DataType(DataType.Password)]
+        [System.ComponentModel.DataAnnotations.Compare("Password")]
+        [NotMapped]
+        public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Date Of Birth")]
+        public string DateOfBirth { get; set; }
+
+       
     }
 }

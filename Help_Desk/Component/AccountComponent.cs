@@ -1,10 +1,10 @@
-﻿using Help_Desk.Models.Account;
-using Help_Desk.Repository;
+﻿using Help_Desk.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using PasswordSecurity;
+using Help_Desk.Models;
 
 namespace Help_Desk.Component
 {
@@ -14,7 +14,7 @@ namespace Help_Desk.Component
         public bool SaveUserDetails(UserDetails userDetails)
         {
             userDetails.Password = PasswordStorage.CreateHash(userDetails.Password);
-            userDetails.UserRole = "U";
+            //userDetails.UserRole = "U";
             return (objrepository.SaveUserDetails(userDetails));
         }
     }
